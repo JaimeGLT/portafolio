@@ -1,320 +1,1027 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaime Guzmán | Desarrollador Full Stack</title>
+  <meta name="description" content="Portafolio de Jaime Guzmán. Desarrollador Full Stack especializado en React, Java Spring Boot y arquitecturas escalables.">
+  <meta name="keywords" content="Jaime Guzmán, Desarrollador Web, Full Stack, React, Java, Spring Boot">
+  <meta name="author" content="Jaime Guzmán">
+  <meta property="og:title" content="Jaime Guzmán | Desarrollador Full Stack">
+  <meta property="og:description" content="Código que está en producción y genera resultados reales.">
+  <meta property="og:image" content="https://portafolio-jaime.vercel.app/assets/img/portafolio-portada.png">
+  <meta property="og:url" content="https://portafolio-jaime.vercel.app/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="/assets/img/icon.png">
 
-    <title>Jaime Guzmán | Desarrollador Full Stack & Arquitectura de Software</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
-    <meta name="description" content="Portafolio de Jaime Guzmán. Desarrollador Full Stack especializado en React, Java Spring Boot y arquitecturas escalables.">
-    <meta name="keywords" content="Jaime Guzmán, Desarrollador Web, Full Stack, React, Java, Spring Boot, Arquitectura Software">
-    <meta name="author" content="Jaime Guzmán">
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-    <meta property="og:title" content="Jaime Guzmán | Desarrollador Full Stack">
-    <meta property="og:description" content="Ingeniería de software sólida. React y Spring Boot.">
-    <meta property="og:image" content="https://portafolio-jaime.vercel.app/assets/img/portafolio-portada.png">
-    <meta property="og:url" content="https://portafolio-jaime.vercel.app/">
-    <meta property="og:type" content="website">
+    :root {
+      --ink:    #0a0a08;
+      --paper:  #f0ede6;
+      --accent: #c8441a;
+      --muted:  #8a8778;
+      --line:   rgba(10,10,8,0.1);
+      --mono:   'DM Mono', monospace;
+      --display:'Bebas Neue', sans-serif;
+      --serif:  'Instrument Serif', serif;
+    }
 
-    <link rel="icon" type="image/png" href="/assets/img/icon.png">
+    body {
+      font-family: var(--mono);
+      color: var(--ink);
+      background: var(--paper);
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    ::selection { background: var(--accent); color: var(--paper); }
 
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(240,237,230,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
-    <style type="text/tailwindcss">
-        @theme {
-            --font-sans: "Inter", sans-serif;
-        }
-        /* Efecto de resplandor sutil para los cards */
-        .glass-card {
-            @apply bg-[#1E293B]/60 backdrop-blur-md border border-white/10 shadow-xl;
-        }
-    </style>
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.45;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* Mobile nav */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: crosshair;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--ink);
+      transition: all 0.3s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100%;
+      width: 260px;
+      background: var(--paper);
+      border-left: 1px solid var(--line);
+      padding: 6rem 2.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.77,0,0.175,1);
+      z-index: 90;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--display);
+      font-size: 2.5rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .mobile-menu a:hover { opacity: 1; }
+
+    .backdrop {
+      position: fixed; inset: 0;
+      background: rgba(10,10,8,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+      z-index: 80;
+    }
+    .backdrop.open { opacity: 1; pointer-events: all; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 60px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-left {
+      padding: 6rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border-right: 1px solid var(--line);
+    }
+
+    .hero-tag {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(4.5rem, 9vw, 8.5rem);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.25s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-name-italic {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.42em;
+      line-height: 2.2;
+      color: var(--muted);
+      display: block;
+    }
+
+    .hero-desc {
+      font-size: 12px;
+      line-height: 1.9;
+      color: var(--muted);
+      max-width: 340px;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-right {
+      padding: 6rem 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      font-family: var(--display);
+      font-size: clamp(8rem, 16vw, 14rem);
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(10,10,8,0.07);
+      position: absolute;
+      right: -0.5rem;
+      top: 4.5rem;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      animation: fadeIn 1.5s 0.6s forwards;
+    }
+
+    .hero-right-top {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .hero-socials {
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    .hero-socials a {
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+    .hero-socials a:hover { color: var(--accent); }
+    .hero-socials svg { width: 30px; height: 30px; }
+
+    .hero-cv-desktop { display: inline-block; align-self: flex-start; }
+    .hero-cv-mobile  { display: none; }
+
+    .hero-metrics {
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+
+    .metric {
+      background: var(--paper);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .metric-num {
+      font-family: var(--display);
+      font-size: 2.8rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .metric-label {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      transition: all 0.22s;
+      cursor: crosshair;
+      display: inline-block;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .btn-primary:hover { background: var(--accent); }
+
+    .btn-ghost {
+      border: 1px solid rgba(10,10,8,0.35);
+      color: var(--ink);
+      background: transparent;
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+    /* ============================================================
+       MARQUEE
+    ============================================================ */
+    .marquee-bar {
+      overflow: hidden;
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 0.85rem 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee-item {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: rgba(240,237,230,0.45);
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+
+    .marquee-item.hi { color: var(--accent); opacity: 1; }
+
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    section { border-bottom: 1px solid var(--line); }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      padding: 2.5rem 3rem 2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-num {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: 0.03em;
+    }
+
+    /* ============================================================
+       PROJECTS
+    ============================================================ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .project-card {
+      padding: 3rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.35s;
+      cursor: crosshair;
+    }
+
+    .project-card:nth-child(even) { border-right: none; }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+      z-index: 0;
+    }
+
+    .project-card:hover::before { transform: translateY(0); }
+
+    .project-card > * { position: relative; z-index: 1; }
+
+    .project-card:hover .project-category,
+    .project-card:hover .project-title,
+    .project-card:hover .project-desc { color: var(--paper); }
+
+    .project-card:hover .project-tag {
+      border-color: rgba(240,237,230,0.2);
+      color: rgba(240,237,230,0.6);
+    }
+
+    .project-card:hover .project-metric {
+      background: var(--accent);
+      color: var(--paper);
+      border-color: var(--accent);
+    }
+
+    .project-card:hover .project-arrow { color: var(--paper); transform: translate(5px,-5px); }
+    .project-card:hover .project-links a { color: rgba(240,237,230,0.6); }
+    .project-card:hover .project-links a:hover { color: var(--paper); }
+
+    .project-category {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      transition: color 0.35s;
+    }
+
+    .project-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 0.95;
+      margin-bottom: 1.2rem;
+      transition: color 0.35s;
+    }
+
+    .project-desc {
+      font-size: 11px;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      max-width: 320px;
+      transition: color 0.35s;
+    }
+
+    .project-metric {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--ink);
+      margin-bottom: 1.5rem;
+      transition: all 0.35s;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+
+    .project-tag {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      border: 1px solid var(--line);
+      padding: 0.2rem 0.7rem;
+      transition: all 0.35s;
+    }
+
+    .project-arrow {
+      position: absolute;
+      top: 2rem; right: 2rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: all 0.25s;
+    }
+
+    .project-links { display: flex; gap: 1rem; }
+    .project-links a { color: var(--muted); transition: color 0.2s; }
+    .project-links svg { width: 17px; height: 17px; }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    .skills-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .skill-col {
+      padding: 3rem;
+      border-right: 1px solid var(--line);
+    }
+    .skill-col:last-child { border-right: none; }
+
+    .skill-col-title {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .skill-list { list-style: none; }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+    .skill-item:last-child { border-bottom: none; }
+
+    .skill-bar {
+      height: 2px;
+      background: rgba(10,10,8,0.1);
+      width: 72px;
+      flex-shrink: 0;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+
+    .contact-left {
+      padding: 4.5rem 3rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-sub {
+      font-size: 11px;
+      line-height: 1.9;
+      color: var(--muted);
+      max-width: 300px;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-email {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 0.3rem;
+      align-self: flex-start;
+      transition: opacity 0.2s;
+    }
+    .contact-email:hover { opacity: 0.7; }
+
+    .contact-right {
+      padding: 4.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      transition: color 0.2s, padding-left 0.25s;
+    }
+    .contact-link-row:first-child { border-top: 1px solid var(--line); }
+    .contact-link-row:hover { color: var(--accent); padding-left: 0.6rem; }
+
+    .contact-link-inner { display: flex; align-items: center; gap: 0.8rem; }
+    .contact-link-inner svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .contact-link-arrow { font-size: 0.85rem; opacity: 0.4; transition: opacity 0.2s; }
+    .contact-link-row:hover .contact-link-arrow { opacity: 1; }
+
+    .contact-link-cv {
+      color: var(--accent);
+      border-color: var(--accent);
+      opacity: 0.85;
+    }
+    .contact-link-cv:hover { color: var(--accent); opacity: 1; }
+
+    .contact-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .contact-available {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+    }
+
+    .contact-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .footer-copy {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .reveal-x {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal-x.in { opacity: 1; transform: translateX(0); }
+
+    /* ============================================================
+       KEYFRAMES
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-left {
+        padding: 5rem 1.5rem 2.5rem;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-right { padding: 2.5rem 1.5rem 3rem; }
+      .hero-bg-text { display: none; }
+      .hero-metrics { margin-top: 0; }
+
+      .hero-cv-desktop { display: none; }
+      .hero-cv-mobile  { display: inline-block; }
+
+      .section-header { padding: 2rem 1.5rem 1.5rem; }
+
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card { border-right: none !important; }
+
+      .skills-body { grid-template-columns: 1fr; }
+      .skill-col { border-right: none; border-bottom: 1px solid var(--line); }
+      .skill-col:last-child { border-bottom: none; }
+      .skill-col { padding: 2rem 1.5rem; }
+
+      .contact-body { grid-template-columns: 1fr; }
+      .contact-left { border-right: none; border-bottom: 1px solid var(--line); padding: 3rem 1.5rem; }
+      .contact-right { padding: 3rem 1.5rem; }
+    }
+  </style>
 </head>
 
-<body class="h-full w-full text-white bg-[#0B1121] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(56,189,248,0.15),rgba(255,255,255,0))] selection:bg-[#38BDF8] selection:text-black">
+<body>
 
-    <header class="fixed top-0 left-0 w-full backdrop-blur-md bg-[#0B1121]/80 border-b border-white/5 z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center h-20 px-5">
-            
-            <a href="#" class="font-bold text-xl select-none tracking-tight hover:text-white transition-colors">
-                &lt;Dev<span class="text-[#38BDF8]">Jaime</span>/&gt;
-            </a>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">JAIME GUZMÁN</a>
+    <ul class="nav-links">
+      <li><a href="#proyectos">PROYECTOS</a></li>
+      <li><a href="#habilidades">HABILIDADES</a></li>
+      <li><a href="#contacto">CONTACTO</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-            <nav class="hidden md:flex gap-8 text-sm font-medium text-slate-300">
-                <a href="#proyectos" class="hover:text-[#38BDF8] transition-colors">Proyectos</a>
-                <a href="#habilidades" class="hover:text-[#38BDF8] transition-colors">Habilidades</a>
-                <a href="#contacto" class="hover:text-[#38BDF8] transition-colors">Contacto</a>
-            </nav>
+  <div class="backdrop" id="backdrop"></div>
 
-            <button id="menuBtn" aria-label="Abrir menú de navegación" class="md:hidden flex flex-col gap-1.5 group hover:cursor-pointer p-2">
-                <span class="block w-6 h-0.5 bg-white transition-all origin-center"></span>
-                <span class="block w-6 h-0.5 bg-white transition-all origin-center"></span>
-                <span class="block w-6 h-0.5 bg-white transition-all origin-center"></span>
-            </button>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#proyectos">PROYECTOS</a>
+    <a href="#habilidades">HABILIDADES</a>
+    <a href="#contacto">CONTACTO</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-tag">DESARROLLADOR FULL STACK — COCHABAMBA, BO</p>
+      <h1 class="hero-name">
+        JAIME<br>GUZMÁN
+        <span class="hero-name-italic">Full Stack · React · Spring Boot</span>
+      </h1>
+      <p class="hero-desc">
+        Estudiante de Ingeniería de Sistemas especializado en React. Me gusta construir cosas que funcionen de verdad, aprender en equipo y mejorar con cada proyecto.
+      </p>
+      <div class="hero-cta">
+        <a href="#proyectos" class="btn btn-primary">VER TRABAJO</a>
+        <a href="/assets/cv-jaime-guzman.pdf" download class="btn btn-ghost hero-cv-mobile">DESCARGAR CV</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <span class="hero-bg-text" aria-hidden="true">JG</span>
+
+      <div class="hero-right-top">
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/jaime-guzm%C3%A1n-dev/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
+          </a>
+          <a href="https://github.com/JaimeGLT" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+          <a href="mailto:jaimeguzmanlt@gmail.com" aria-label="Email">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
         </div>
-    </header>
+        <a href="/assets/cv-jaime-guzman.pdf" download class="btn btn-primary hero-cv-desktop">DESCARGAR CV</a>
+      </div>
 
-    <nav id="mobileMenu"
-        class="fixed top-0 right-0 h-full w-64 bg-[#0B1121] border-l border-white/10 p-8 flex flex-col gap-6 text-lg
-        translate-x-full transition-transform duration-300 md:hidden z-40 mt-16 shadow-2xl">
-        <a href="#proyectos" class="hover:text-[#38BDF8] transition block">Proyectos</a>
-        <a href="#habilidades" class="hover:text-[#38BDF8] transition block">Habilidades</a>
-        <a href="#contacto" class="hover:text-[#38BDF8] transition block">Contacto</a>
-    </nav>
+      <div class="hero-metrics">
+        <div class="metric">
+          <div class="metric-num">4+</div>
+          <div class="metric-label">PROYECTOS EN PRODUCCIÓN</div>
+        </div>
+        <div class="metric" style="border-left:1px solid var(--line)">
+          <div class="metric-num">4</div>
+          <div class="metric-label">EXPERIENCIAS LABORALES</div>
+        </div>
+        <div class="metric" style="border-top:1px solid var(--line)">
+          <div class="metric-num" style="font-size:1.6rem;line-height:1.2">WEB &<br>MOBILE</div>
+          <div class="metric-label">REACT ECOSYSTEM</div>
+        </div>
+        <div class="metric" style="border-top:1px solid var(--line); border-left:1px solid var(--line)">
+          <div class="metric-num">6TO</div>
+          <div class="metric-label">SEMESTRE · ING. SISTEMAS</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <div id="backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-30 transition-opacity"></div>
+  <!-- MARQUEE -->
+  <div class="marquee-bar" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">REACT</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">SPRING BOOT</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">POSTGRESQL</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">TYPESCRIPT</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">DOCKER</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">REST APIs</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">TAILWINDCSS</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">CI / CD</span><span class="marquee-item hi">—</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">REACT</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">SPRING BOOT</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">POSTGRESQL</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">TYPESCRIPT</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">DOCKER</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">REST APIs</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">TAILWINDCSS</span><span class="marquee-item hi">—</span>
+      <span class="marquee-item">CI / CD</span><span class="marquee-item hi">—</span>
+    </div>
+  </div>
 
-    <main class="pt-20">
-        
-        <section class="flex flex-col items-center text-center max-w-3xl mx-auto pt-20 pb-28 gap-6 min-h-[85vh] justify-center px-5 relative">
-            
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#38BDF8] opacity-5 rounded-full blur-[100px] pointer-events-none"></div>
+  <!-- PROJECTS -->
+  <section id="proyectos">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">PROYECTOS</h2>
+    </div>
 
-            <p class="text-[#38BDF8] font-mono text-sm tracking-wider mb-2">DESARROLLADOR DE SOFTWARE</p>
+    <div class="projects-grid">
 
-            <h1 class="text-white font-bold text-4xl md:text-6xl leading-tight tracking-tight">
-                Jaime Guzmán
-            </h1>
+      <!-- Card 1 -->
+      <article class="project-card reveal">
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <p class="project-category">SISTEMA ERP INTEGRAL</p>
+        <h3 class="project-title">EL BUEN<br>CORTE</h3>
+        <p class="project-desc">Automatización completa de una barbería: citas, inventario y asistente IA. Resultado medible desde el día uno.</p>
+        <div class="project-metric">↓ 15% PÉRDIDAS DE INGRESOS</div>
+        <div class="project-tags">
+          <span class="project-tag">REACT</span>
+          <span class="project-tag">SPRING BOOT</span>
+          <span class="project-tag">POSTGRESQL</span>
+          <span class="project-tag">DOCKER</span>
+        </div>
+        <div class="project-links">
+          <a href="https://el-buen-corte.vercel.app/" target="_blank" rel="noopener" aria-label="Ver demo">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <a href="https://github.com/JaimeGLT/el-buen-corte" target="_blank" rel="noopener" aria-label="Ver código">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        </div>
+      </article>
 
-            <h2 class="text-slate-400 font-semibold text-xl md:text-3xl leading-tight max-w-2xl">
-                Desarrollador Full Stack. <span class="text-slate-200">Arquitectura Escalable.</span>
-            </h2>
+      <!-- Card 2 -->
+      <article class="project-card reveal" style="transition-delay:0.12s">
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <p class="project-category">E-COMMERCE B2B</p>
+        <h3 class="project-title">CREACIONES<br>NIKOLET</h3>
+        <p class="project-desc">Plataforma de catálogo para revendedores. Descentralizó pedidos y eliminó el caos de la gestión manual.</p>
+        <div class="project-metric">GESTIÓN MANUAL → AUTOMATIZADA</div>
+        <div class="project-tags">
+          <span class="project-tag">REACT</span>
+          <span class="project-tag">TYPESCRIPT</span>
+          <span class="project-tag">TAILWIND</span>
+        </div>
+        <div class="project-links">
+          <a href="https://creaciones-nikolet.lat/" target="_blank" rel="noopener" aria-label="Ver demo">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </article>
 
-            <p class="text-slate-400 text-base md:text-lg leading-relaxed max-w-xl mt-4">
-                Desarrollo soluciones digitales robustas y eficientes. 
-                Especializado en el ecosistema <strong class="text-slate-200">React</strong> y <strong class="text-slate-200">Spring Boot</strong> para negocios que buscan rendimiento.
-            </p>
+      <!-- Card 3 -->
+      <article class="project-card reveal" style="transition-delay:0.06s">
+        <span class="project-arrow" aria-hidden="true">↗</span>
+        <p class="project-category">CLOUD STORAGE</p>
+        <h3 class="project-title">MI<br>DRIVE</h3>
+        <p class="project-desc">Mini clon de OneDrive. Arquitectura con autenticación robusta, control de versiones y gestión de permisos.</p>
+        <div class="project-metric">ARQUITECTURA SEGURA</div>
+        <div class="project-tags">
+          <span class="project-tag">SPRING BOOT</span>
+          <span class="project-tag">REACT</span>
+          <span class="project-tag">POSTGRESQL</span>
+        </div>
+        <div class="project-links">
+          <a href="https://mi-drive.vercel.app/" target="_blank" rel="noopener" aria-label="Ver demo">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <a href="https://github.com/JaimeGLT/mi-drive-client/" target="_blank" rel="noopener" aria-label="Ver código">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        </div>
+      </article>
 
-            <div class="flex flex-col sm:flex-row gap-4 mt-8 w-full justify-center">
-                <a href="#proyectos"
-                    class="bg-[#38BDF8] text-black py-3 px-8 rounded font-bold hover:bg-[#0ea5e9] transition shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-                    Ver Trabajo
-                </a>
-                <a href="/assets/CV_Jaime_Guzman_Frontend.pdf" 
-                   download="CV_Jaime_Guzman_FullStack.pdf"
-                   class="border border-slate-600 text-slate-300 py-3 px-8 rounded font-semibold hover:border-white hover:text-white transition">
-                    Descargar CV
-                </a>
-            </div>
+      <!-- Card 4 - Tacada -->
+      <article class="project-card reveal" style="transition-delay:0.18s; border-bottom:none;">
+        <p class="project-category">SAAS · TIEMPO REAL</p>
+        <h3 class="project-title">TACADA</h3>
+        <p class="project-desc">SaaS de gestión de mesas en tiempo real para salones de billar. Seguimiento de sesiones y control de disponibilidad.</p>
+        <div class="project-metric">GESTIÓN EN TIEMPO REAL</div>
+        <div class="project-tags">
+          <span class="project-tag">REACT</span>
+          <span class="project-tag">TYPESCRIPT</span>
+          <span class="project-tag">REST APIs</span>
+        </div>
+      </article>
 
-            <div class="flex items-center gap-6 mt-12 text-slate-400">
-                <a href="https://www.linkedin.com/in/jaime-guzm%C3%A1n-dev/" target="_blank" class="hover:text-[#0077b5] hover:scale-110 transition-all">
-                    <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
-                </a>
-                <a href="https://github.com/JaimeGLT" target="_blank" class="hover:text-white hover:scale-110 transition-all">
-                    <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                </a>
-                <a href="mailto:jaimeguzmanlt@gmail.com" class="hover:text-red-500 hover:scale-110 transition-all">
-                    <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                </a>
-            </div>
-        </section>
+    </div>
+  </section>
 
-        <section class="flex flex-col px-5 pb-20 gap-16 max-w-[1000px] mx-auto" id="proyectos">
-            <div class="flex items-center gap-4">
-                <h2 class="text-white text-2xl font-bold md:text-3xl">Proyectos Destacados</h2>
-                <div class="h-[1px] bg-slate-700 flex-grow"></div>
-            </div>
+  <!-- SKILLS -->
+  <section id="habilidades">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">HABILIDADES</h2>
+    </div>
+    <div class="skills-body">
+      <div class="skill-col reveal">
+        <p class="skill-col-title">FRONTEND</p>
+        <ul class="skill-list">
+          <li class="skill-item">JavaScript ES6+<div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></li>
+          <li class="skill-item">React & Native<div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></li>
+          <li class="skill-item">TypeScript<div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></li>
+          <li class="skill-item">TailwindCSS<div class="skill-bar"><div class="skill-fill" data-w="92"></div></div></li>
+        </ul>
+      </div>
+      <div class="skill-col reveal" style="transition-delay:0.1s">
+        <p class="skill-col-title">BACKEND</p>
+        <ul class="skill-list">
+          <li class="skill-item">Java / Spring Boot<div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></li>
+          <li class="skill-item">PostgreSQL<div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></li>
+          <li class="skill-item">RESTful APIs<div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></li>
+          <li class="skill-item">Microservicios<div class="skill-bar"><div class="skill-fill" data-w="50"></div></div></li>
+        </ul>
+      </div>
+      <div class="skill-col reveal" style="transition-delay:0.2s">
+        <p class="skill-col-title">DEVOPS & TOOLS</p>
+        <ul class="skill-list">
+          <li class="skill-item">Git & GitHub<div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></li>
+          <li class="skill-item">Docker<div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></li>
+          <li class="skill-item">CI/CD GitHub Actions<div class="skill-bar"><div class="skill-fill" data-w="68"></div></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-            <article class="glass-card rounded-xl overflow-hidden md:flex group hover:border-slate-500 transition-colors">
-                <div class="md:w-7/12 overflow-hidden relative">
-                     <div class="absolute inset-0 bg-[#38BDF8]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                     <img src="/assets/img/erp.png" 
-                          loading="lazy" 
-                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                          alt="Interfaz del sistema ERP El Buen Corte">
-                </div>
-                
-                <div class="p-6 md:p-8 md:w-5/12 flex flex-col justify-between relative z-20">
-                    <div>
-                        <p class="text-[#38bdf8] font-mono text-xs mb-2">SISTEMA ERP INTEGRAL</p>
-                        <h3 class="text-white font-bold text-2xl mb-4 group-hover:text-[#38BDF8] transition-colors">El Buen Corte ERP</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Optimización de negocio mediante automatización. Reduje pérdidas de ingresos en un 15% mediante un sistema de gestión de citas e inventario con asistente de IA integrado.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6 text-xs font-mono text-slate-300">
-                            <span class="bg-slate-800 px-2 py-1 rounded">React</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">Spring Boot</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">PostgreSQL</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">Docker</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <a href="https://el-buen-corte.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#38BDF8]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
-                        <a href="https://github.com/JaimeGLT/el-buen-corte" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#38BDF8]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
+  <!-- CONTACT -->
+  <section id="contacto" style="border-bottom:none;">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">CONTACTO</h2>
+    </div>
+    <div class="contact-body">
+      <div class="contact-left reveal-x">
+        <div>
+          <p class="contact-sub">Estudiante de Ingeniería de Sistemas con experiencia en startups y equipos ágiles. Si quieres charlar sobre tecnología o lo que estoy construyendo, aquí estoy.</p>
+        </div>
+        <a href="mailto:jaimeguzmanlt@gmail.com" class="contact-email">jaimeguzmanlt@gmail.com</a>
+      </div>
+      <div class="contact-right reveal">
+        <nav class="contact-links" aria-label="Links de contacto">
+          <a href="https://www.linkedin.com/in/jaime-guzm%C3%A1n-dev/" target="_blank" rel="noopener" class="contact-link-row">
+            <span class="contact-link-inner">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
+              LINKEDIN
+            </span>
+            <span class="contact-link-arrow">↗</span>
+          </a>
+          <a href="https://github.com/JaimeGLT" target="_blank" rel="noopener" class="contact-link-row">
+            <span class="contact-link-inner">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GITHUB
+            </span>
+            <span class="contact-link-arrow">↗</span>
+          </a>
+          <a href="/assets/cv-jaime-guzman.pdf" download class="contact-link-row contact-link-cv">
+            <span class="contact-link-inner">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              DESCARGAR CV
+            </span>
+            <span class="contact-link-arrow">↓</span>
+          </a>
+        </nav>
+        <div class="contact-bottom">
+          <div class="contact-available">
+            <span class="contact-dot"></span>
+            COCHABAMBA, BOLIVIA — UTC-4
+          </div>
+          <p class="footer-copy">DISEÑADO Y CONSTRUIDO — JAIME GUZMÁN © 2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            <article class="glass-card rounded-xl overflow-hidden md:flex md:flex-row-reverse group hover:border-slate-500 transition-colors">
-                <div class="md:w-7/12 overflow-hidden relative">
-                    <div class="absolute inset-0 bg-[#38BDF8]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                    <img src="/assets/img/nikolet.png" 
-                         loading="lazy"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                         alt="Catálogo web Creaciones Nikolet">
-                </div>
-                
-                <div class="p-6 md:p-8 md:w-5/12 flex flex-col justify-between z-20">
-                    <div>
-                        <p class="text-[#38bdf8] font-mono text-xs mb-2">E-COMMERCE B2B</p>
-                        <h3 class="text-white font-bold text-2xl mb-4 group-hover:text-[#38BDF8] transition-colors">Creaciones NIKOLET</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Plataforma de catálogo optimizada para revendedores. Solucionó la descentralización de pedidos reduciendo el tiempo de gestión manual drásticamente.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6 text-xs font-mono text-slate-300">
-                            <span class="bg-slate-800 px-2 py-1 rounded">React</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">TypeScript</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">Tailwind</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <a href="https://creaciones-nikolet.lat/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#38BDF8]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
+  <script>
+    // ── Mobile menu ─────────────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const backdrop   = document.getElementById('backdrop');
 
-            <article class="glass-card rounded-xl overflow-hidden md:flex group hover:border-slate-500 transition-colors">
-                <div class="md:w-7/12 overflow-hidden relative">
-                    <div class="absolute inset-0 bg-[#38BDF8]/20 group-hover:bg-transparent transition-colors z-10"></div>
-                    <img src="/assets/img/mi-drive.png" 
-                         loading="lazy"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                         alt="Aplicación Mi Drive">
-                </div>
-                
-                <div class="p-6 md:p-8 md:w-5/12 flex flex-col justify-between z-20">
-                    <div>
-                        <p class="text-[#38bdf8] font-mono text-xs mb-2">CLOUD STORAGE</p>
-                        <h3 class="text-white font-bold text-2xl mb-4 group-hover:text-[#38BDF8] transition-colors">Mi Drive</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Clon funcional de OneDrive. Arquitectura segura para gestión de archivos con autenticación robusta y control de versiones básico.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-6 text-xs font-mono text-slate-300">
-                            <span class="bg-slate-800 px-2 py-1 rounded">Spring Boot</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">React</span>
-                            <span class="bg-slate-800 px-2 py-1 rounded">PostgreSQL</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <a href="https://mi-drive.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#38BDF8]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
-                        <a href="https://github.com/JaimeGLT/mi-drive-client/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#38BDF8]">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-        </section>
+    const toggleMenu = (state) => {
+      const open = state ?? !mobileMenu.classList.contains('open');
+      hamburger.classList.toggle('open', open);
+      mobileMenu.classList.toggle('open', open);
+      backdrop.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
 
-        <section class="py-20 bg-black/20" id="habilidades">
-            <div class="max-w-[1000px] mx-auto px-5">
-                <h2 class="text-white text-2xl font-bold mb-10 text-center md:text-left">Tech Stack</h2>
-    
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-                    <div>
-                        <h3 class="text-[#38BDF8] font-bold mb-4 tracking-wider">FRONTEND</h3>
-                        <ul class="space-y-2 text-slate-400 font-mono">
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>JavaScript (ES6+)</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>React & React Native</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>TypeScript</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>TailwindCSS</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-[#38BDF8] font-bold mb-4 tracking-wider">BACKEND</h3>
-                        <ul class="space-y-2 text-slate-400 font-mono">
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>Java (Spring Boot)</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>PostgreSQL</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>RESTful APIs</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>Microservicios (Básico)</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-[#38BDF8] font-bold mb-4 tracking-wider">DEVOPS & TOOLS</h3>
-                        <ul class="space-y-2 text-slate-400 font-mono">
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>Git & GitHub</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>Docker</li>
-                            <li><span class="text-[#38BDF8] mr-2">▹</span>CI/CD (GitHub Actions)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+    hamburger.addEventListener('click', () => toggleMenu());
+    backdrop.addEventListener('click', () => toggleMenu(false));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
-        <section class="flex flex-col justify-center items-center py-24 px-5 gap-6 text-center" id="contacto">
-            <h2 class="text-slate-200 font-bold text-3xl md:text-4xl">¿Listo para escalar?</h2>
-            <p class="text-slate-400 text-base max-w-[500px]">
-                Actualmente disponible para nuevos retos. Si buscas un desarrollador que entienda el código y el negocio, hablemos.
-            </p>
-            <a href="mailto:jaimeguzmanlt@gmail.com" class="mt-4 border border-[#38BDF8] text-[#38BDF8] px-8 py-3 rounded font-mono text-sm hover:bg-[#38BDF8]/10 transition">
-                jaimeguzmanlt@gmail.com
-            </a>
-            
-            <footer class="mt-20 text-slate-600 text-sm">
-                Diseñado y Construido por Jaime © 2025
-            </footer>
-        </section>
-    </main>
+    // ── Scroll reveal ────────────────────────────────────────────
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          // Animate skill bars when skills section enters
+          e.target.querySelectorAll('.skill-fill[data-w]').forEach(bar => {
+            bar.style.width = bar.dataset.w + '%';
+          });
+        }
+      });
+    }, { threshold: 0.12 });
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById("menuBtn");
-            const menu = document.getElementById("mobileMenu");
-            const backdrop = document.getElementById("backdrop");
-            const links = menu.querySelectorAll("a"); // Seleccionar links del menú móvil
+    document.querySelectorAll('.reveal, .reveal-x').forEach(el => revealObs.observe(el));
 
-            let isOpen = false;
-
-            const toggleMenu = () => {
-                isOpen = !isOpen;
-
-                // Animación hamburguesa
-                const spans = btn.querySelectorAll("span");
-                
-                if(isOpen) {
-                    spans[0].classList.add("rotate-45", "translate-y-2");
-                    spans[1].classList.add("opacity-0");
-                    spans[2].classList.add("-rotate-45", "-translate-y-2");
-                    
-                    menu.classList.remove("translate-x-full");
-                    backdrop.classList.remove("hidden");
-                    setTimeout(() => backdrop.classList.remove("opacity-0"), 10); // Fade in
-                    document.body.style.overflow = "hidden";
-                } else {
-                    spans[0].classList.remove("rotate-45", "translate-y-2");
-                    spans[1].classList.remove("opacity-0");
-                    spans[2].classList.remove("-rotate-45", "-translate-y-2");
-
-                    menu.classList.add("translate-x-full");
-                    backdrop.classList.add("opacity-0"); // Fade out
-                    setTimeout(() => backdrop.classList.add("hidden"), 300);
-                    document.body.style.overflow = "auto";
-                }
-            };
-
-            btn.addEventListener('click', toggleMenu);
-            backdrop.addEventListener('click', toggleMenu);
-            
-            // Cerrar menú al hacer click en un link
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (isOpen) toggleMenu();
-                });
-            });
-        });
-    </script>
+    // ── Parallax on hero bg text ─────────────────────────────────
+    const bgText = document.querySelector('.hero-bg-text');
+    if (bgText) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        bgText.style.transform = `translateY(${y * 0.18}px)`;
+      }, { passive: true });
+    }
+  </script>
 </body>
 </html>
